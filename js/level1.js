@@ -7,7 +7,7 @@ class Player {
         this.x = 500;
         this.y = 500;
         this.sprite = sprite;
-        this.speed = 5;
+        this.speed = 3;
     }
 
     show() {
@@ -16,18 +16,25 @@ class Player {
 
 
     move() {
+        let mvmt = createVector(0, 0);
+
         if (keyIsDown(LEFT_ARROW)) {
-            this.x -= this.speed;
+            mvmt.x -= this.speed;
         }
         if (keyIsDown(RIGHT_ARROW)) {
-            this.x += this.speed;
+            mvmt.x += this.speed;
         }
         if (keyIsDown(UP_ARROW)) {
-            this.y -= this.speed;
+            mvmt.y -= this.speed;
         }
         if (keyIsDown(DOWN_ARROW)) {
-            this.y += this.speed;
+            mvmt.y += this.speed;
         }
+
+        mvmt.setMag(this.speed);
+
+        this.x += mvmt.x;
+        this.y += mvmt.y;
     }
 }
 

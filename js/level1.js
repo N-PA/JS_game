@@ -13,6 +13,22 @@ class Player {
     show() {
         image(this.sprite,this.x,this.y);
     }
+
+
+    move() {
+        if (keyIsDown(LEFT_ARROW)) {
+            this.x -= this.speed;
+        }
+        if (keyIsDown(RIGHT_ARROW)) {
+            this.x += this.speed;
+        }
+        if (keyIsDown(UP_ARROW)) {
+            this.y -= this.speed;
+        }
+        if (keyIsDown(DOWN_ARROW)) {
+            this.y += this.speed;
+        }
+    }
 }
 
 function preload() {
@@ -22,10 +38,11 @@ function preload() {
 
 function setup() {
     createCanvas(1000, 1000);
-    background("red");
     player1 = new Player(playerImage);
 }
 
 function draw() {
+    background("red");
+    player1.move();
     player1.show();
 }

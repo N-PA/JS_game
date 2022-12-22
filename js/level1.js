@@ -38,6 +38,31 @@ class Player {
     }
 }
 
+class Vijand {
+    constructor(x,y) {
+        this.x = x;
+        this.y = y;
+        this.sprite = null;
+        this.stapGrootte = null;
+        this.snelheid = 5
+    }
+    move (){ 
+
+        
+        this.x = constrain(this.x,0,canvas.width);
+        this.y = constrain(this.y,0,canvas.height);
+
+        
+    }
+    show() {
+        image(this.sprite,this.x,this.y,100,100);
+    }
+
+
+    
+}
+
+
 function preload() {
     weaponImage = loadImage("../images/gun.png");
     playerImage = loadImage("../images/player.png");
@@ -46,10 +71,16 @@ function preload() {
 function setup() {
     createCanvas(1000, 1000);
     player1 = new Player(playerImage);
+    
+    alice = new Vijand(700,200);
+    alice.stapGrootte = 5 ;
+    alice.sprite = rect(20, 20, 150, 100)
 }
 
 function draw() {
     background("red");
     player1.move();
     player1.show();
+    alice.move();
+    alice.show();
 }

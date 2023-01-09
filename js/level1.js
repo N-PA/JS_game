@@ -38,41 +38,30 @@ class Player {
     }
 }
 
-class Player2 {
-    constructor(sprite) {
-        this.x = 500;
-        this.y = 500;
-        this.sprite = sprite;
-        this.speed = 3;
+class Vijand {
+    constructor(x,y) {
+        this.x = x;
+        this.y = y;
+        this.sprite = null;
+        this.stapGrootte = null;
+        this.snelheid = 5
     }
+    move (){ 
 
+        
+        this.x = constrain(this.x,0,canvas.width);
+        this.y = constrain(this.y,0,canvas.height);
+
+        
+    }
     show() {
-        image(this.sprite,this.x,this.y);
+        image(this.sprite,this.x,this.y,100,100);
     }
 
 
-    move() {
-        let mvmt = createVector(0, 0);
-
-        if (keyIsDown(65)) {
-            mvmt.x -= this.speed;
-        }
-        if (keyIsDown(68)) {
-            mvmt.x += this.speed;
-        }
-        if (keyIsDown(87)) {
-            mvmt.y -= this.speed;
-        }
-        if (keyIsDown(83)) {
-            mvmt.y += this.speed;
-        }
-
-        mvmt.setMag(this.speed);
-
-        this.x += mvmt.x;
-        this.y += mvmt.y;
-    }
+    
 }
+
 
 function preload() {
     weaponImage = loadImage("../images/gun.png");
@@ -82,13 +71,10 @@ function preload() {
 function setup() {
     createCanvas(1000, 1000);
     player1 = new Player(playerImage);
-    player2 = new Player2(playerImage);
 }
 
 function draw() {
     background("red");
     player1.move();
     player1.show();
-    player2.move();
-    player2.show();
 }

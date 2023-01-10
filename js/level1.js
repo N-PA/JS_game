@@ -1,4 +1,5 @@
-class Weapon {
+
+class Weapon { 
 
 }
 
@@ -64,17 +65,18 @@ class Vijand {
 
 
 function preload() {
+    map_background =  loadImage("../images/level1.png");
     weaponImage = loadImage("../images/gun.png");
     playerImage = loadImage("../images/player.png");
 }
 
 function setup() {
-    createCanvas(1000, 1000);
+    createCanvas(screen.width, screen.height);
     player1 = new Player(playerImage);
 }
 
 function draw() {
-    background("red");
+    background(map_background);
     player1.move();
     player1.show();
 }

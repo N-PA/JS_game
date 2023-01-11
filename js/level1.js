@@ -101,19 +101,5 @@ function draw() {
     player1.move();
     player1.show();
     ai1.show();
-    //ai1.move(); 
-}
-    // distancex = Vijand.x - Player.x;
-    //    let d = createVector(0, 0);
-
-        
-
-    //     if (distancex  >= this.maxDistance){
-    //        d.x -= this.speed;
-    //     }
-    //     d.setMag(this.speed);
-    //     Vijand.x += d.x;
-    //     Vijand.y += d.y;
-        
-
  
+}

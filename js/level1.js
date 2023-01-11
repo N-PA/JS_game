@@ -1,18 +1,43 @@
+class Bullet {
+    constructor(x,y) {
+        this.x = x;
+        this.y = y;
+        this.sprite = new Sprite();
+        this.sprite.width = 60;
+	    this.sprite.height = 50;
+    }
 
-class Weapon { 
+    travel(enemy){
 
+    }
+}
+
+class Gun {
+    constructor(sprite) {
+        this.sprite = sprite;
+    }
+
+    show(x, y) {
+        image(this.sprite, x + 100, y + 80, this.sprite.width/2, this.sprite.height/2);
+    }
+    
+    shoot() {
+
+    }
 }
 
 class Player {
-    constructor(sprite) {
+    constructor(sprite,gun) {
         this.x = 500;
         this.y = 500;
         this.sprite = sprite;
         this.speed = 3;
+        this.gun = gun;
     }
 
     show() {
         image(this.sprite,this.x,this.y);
+        this.gun.show(this.x,this.y);``
     }
 
 
@@ -92,7 +117,8 @@ function preload() {
 
 function setup() {
     createCanvas(screen.width, screen.height);
-    player1 = new Player(playerImage);
+    gun1 = new Gun(weaponImage);
+    player1 = new Player(playerImage, gun1);
     ai1 = new Vijand(ai);
 }
 

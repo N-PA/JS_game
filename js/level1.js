@@ -80,11 +80,12 @@ class Vijand {
         image(this.sprite,this.x,this.y,100,100);
     }
 
-    move (){ 
+    move (targetx){ 
 
        let mvmt = createVector(0, 0);
 
-        distancex = this.x - Player.x;
+
+        var distancex = this.x - targetx;
 
         if (distancex  <= this.maxDistance){
            mvmt.x += this.speed;
@@ -108,15 +109,15 @@ class Vijand {
     
 }
 function preload() {
-    map_background =  loadImage("../images/level1.png");
-    weaponImage = loadImage("../images/gun.png");
-    playerImage = loadImage("../images/player.png");
-    ai = loadImage("../images/gun.png");
+    map_background =  loadImage("images/level1.png");
+    weaponImage = loadImage("images/gun.png");
+    playerImage = loadImage("images/player.png");
+    ai = loadImage("images/player.png");
     //gebruik van image player is zodat ik een werkende png heb 
 }
 
 function setup() {
-    createCanvas(screen.width, screen.height);
+    createCanvas(window.innerWidth, window.innerHeight);
     gun1 = new Gun(weaponImage);
     player1 = new Player(playerImage, gun1);
     ai1 = new Vijand(ai);
@@ -127,19 +128,8 @@ function draw() {
     player1.move();
     player1.show();
     ai1.show();
-    //ai1.move(); 
+    ai1.move(player1.x); 
 }
-    // distancex = Vijand.x - Player.x;
-    //    let d = createVector(0, 0);
 
-        
-
-    //     if (distancex  >= this.maxDistance){
-    //        d.x -= this.speed;
-    //     }
-    //     d.setMag(this.speed);
-    //     Vijand.x += d.x;
-    //     Vijand.y += d.y;
-        
 
  

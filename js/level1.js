@@ -72,7 +72,8 @@ class Vijand {
         this.y = 0;
         this.sprite = hallo;
         this.speed = 2;
-        this.maxDistance = 10; 
+        this.stop = 0;
+        this.maxDistance = 90; 
         
     
     }
@@ -80,34 +81,36 @@ class Vijand {
         image(this.sprite,this.x,this.y,100,100);
     }
 
-    move (targetx){ 
+    move (targetx, targety){
+        let mvmt = createVector(0, 0);
 
-       let mvmt = createVector(0, 0);
 
+        let distancex = targetx - this.x;
+        let distancey = targety - this.y;
+       
 
-        var distancex = this.x - targetx;
+        if(distancex > this.maxDistance) {
+            mvmt.x += this.speed;
+        } else if(distancex < -this.maxDistance) {
+            mvmt.x -= this.speed;
+        } 
 
-        if (distancex  <= this.maxDistance){
-           mvmt.x += this.speed;
+        if(distancey > this.maxDistance) {
+            mvmt.y += this.speed;
+        } else if(distancey < -this.maxDistance) {
+            mvmt.y -= this.speed;
         }
-        mvmt.setMag(this.speed);
+
         this.x += mvmt.x;
         this.y += mvmt.y;
-        
-
-        
-       // this.x = constrain(this.x,0,canvas.width);
-        //this.y = constrain(this.y,0,canvas.height);
-
-        
-       
-        
     }
-  
+}
+
+
 
 
     
-}
+
 function preload() {
     map_background =  loadImage("images/level1.png");
     weaponImage = loadImage("images/gun.png");
@@ -128,7 +131,7 @@ function draw() {
     player1.move();
     player1.show();
     ai1.show();
-    ai1.move(player1.x); 
+    ai1.move(player1.x, player1.y); 
 }
 
 

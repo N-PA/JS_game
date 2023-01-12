@@ -1,18 +1,49 @@
+class Bullet {
+    constructor(x,y) {
+        this.x = x;
+        this.y = y;
+    }
 
-class Weapon { 
+    travel(enemy){
+        fill("yellow");
+        stroke('yellow');
+        rect(this.x,this.y,20,15);
+        this.x += 10;
+    }
+}
 
+class Gun {
+    constructor(sprite) {
+        this.sprite = sprite;
+        this.bullets = [];
+    }
+
+    show(x, y) {
+        image(this.sprite, x + 100, y + 80, this.sprite.width/2, this.sprite.height/2);
+        if (!!this.bullets.length){
+            this.bullets.forEach(element => {
+                element.travel();
+            });
+        }
+    }
+    
+    shoot(x,y) {
+        this.bullets.push(new Bullet(x + 100, y + 80));
+    }
 }
 
 class Player {
-    constructor(sprite) {
+    constructor(sprite,gun) {
         this.x = 500;
         this.y = 500;
         this.sprite = sprite;
         this.speed = 3;
+        this.gun = gun;
     }
 
     show() {
         image(this.sprite,this.x,this.y);
+        this.gun.show(this.x,this.y);
     }
 
 
@@ -87,17 +118,22 @@ class Vijand {
     
 
 function preload() {
-    map_background =  loadImage("../images/level1.png");
-    weaponImage = loadImage("../images/gun.png");
-    playerImage = loadImage("../images/player.png");
-    ai = loadImage("../images/gun.png");
+    map_background =  loadImage("images/level1.png");
+    weaponImage = loadImage("images/gun.png");
+    playerImage = loadImage("images/player.png");
+    ai = loadImage("images/gun.png");
     //gebruik van image player is zodat ik een werkende png heb 
 }
 
 function setup() {
-    createCanvas(screen.width, screen.height);
-    player1 = new Player(playerImage);
+    createCanvas(window.innerWidth, window.innerHeight);
+    gun1 = new Gun(weaponImage);
+    player1 = new Player(playerImage, gun1);
     ai1 = new Vijand(ai);
+}
+
+function mouseClicked() {
+    player1.gun.shoot(player1.x,player1.y);
 }
 
 function draw() {

@@ -1,14 +1,15 @@
 class Bullet {
-    constructor(x,y) {
-        this.x = x;
-        this.y = y;
+    constructor(x, y) {
+        this.x = x + 185;
+        this.y = y + 115;
     }
 
     travel(enemy){
         fill("yellow");
         stroke('yellow');
-        rect(this.x,this.y,20,15);
+        rect(this.x,this.y,10,7.5);
         this.x += 10;
+        
     }
 }
 
@@ -28,7 +29,7 @@ class Gun {
     }
     
     shoot(x,y) {
-        this.bullets.push(new Bullet(x + 100, y + 80));
+        this.bullets.push(new Bullet(x, y, this.bullets, this.bullets.length));
     }
 }
 

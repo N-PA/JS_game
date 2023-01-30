@@ -68,6 +68,10 @@ class Player {
 
         this.x += mvmt.x;
         this.y += mvmt.y;
+
+        this.x = constrain(this.x, 0, window.innerWidth - this.sprite.width);
+        this.y = constrain(this.y, 0, window.innerHeight - this.sprite.height);
+        
         
         
     }

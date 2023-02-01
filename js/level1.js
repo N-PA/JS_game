@@ -43,7 +43,11 @@ class Player {
     }
 
     show() {
-        image(this.sprite,this.x,this.y);
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const playersizeHeight = screenWidth * 0.1
+        const playersizewidth = screenHeight * 0.1
+        image(playersizewidth,playersizeHeight,this.x,this.y);
         this.gun.show(this.x,this.y);
     }
 

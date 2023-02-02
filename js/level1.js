@@ -8,6 +8,7 @@ class Bullet {
     travel(){
         this.x += 10 * cos(this.angle);
         this.y += 10 * sin(this.angle);
+        push();
         fill("yellow");
         stroke('yellow');
         translate(this.x, this.y);

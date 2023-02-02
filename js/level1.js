@@ -18,13 +18,18 @@ class Player {
         this.y = 500;
         this.sprite = sprite;
         this.speed = 3;
-
     }
 
     show() {
         const playersizeHeight = window.innerHeight * 0.2;
         const playersizewidth = window.innerWidth * 0.1;
-        image(this.sprite,this.x,this.y,playersizewidth,playersizeHeight);
+        push();
+        translate(this.x+(playersizewidth/2), this.y+(playersizeHeight/2));
+        let angle = atan2(mouseY - this.y, mouseX - this.x);
+        rotate(angle);
+        imageMode(CENTER);
+        image(this.sprite,0,0,playersizewidth,playersizeHeight);
+        pop();
         if (!!bullets.length){
             for (let i = 0; i < bullets.length; i++){
                 bullets[i].travel();

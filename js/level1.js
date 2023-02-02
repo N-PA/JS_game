@@ -24,7 +24,7 @@ class Player {
         const playersizeHeight = window.innerHeight * 0.2;
         const playersizewidth = window.innerWidth * 0.1;
         push();
-        translate(this.x+(playersizewidth/2), this.y+(playersizeHeight/2));
+        translate(this.x, this.y);
         let angle = atan2(mouseY - this.y, mouseX - this.x);
         rotate(angle);
         imageMode(CENTER);

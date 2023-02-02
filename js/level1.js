@@ -1,54 +1,42 @@
 class Bullet {
     constructor(x, y) {
-        this.x = x + 185;
-        this.y = y + 115;
+        this.x = x + 65;
+        this.y = y + 25;
     }
 
-    travel(enemy){
+    travel(){
         fill("yellow");
         stroke('yellow');
         rect(this.x,this.y,10,7.5);
         this.x += 10;
-        
-    }
-}
-
-class Gun {
-    constructor(sprite) {
-        this.sprite = sprite;
-        this.bullets = [];
-    }
-
-    show(x, y) {
-        image(this.sprite, x + 100, y + 80, this.sprite.width/2, this.sprite.height/2);
-        if (!!this.bullets.length){
-            this.bullets.forEach(element => {
-                element.travel();
-            });
-        }
-    }
-    
-    shoot(x,y) {
-        this.bullets.push(new Bullet(x, y, this.bullets, this.bullets.length));
     }
 }
 
 class Player {
-    constructor(sprite,gun) {
+    constructor(sprite) {
         this.x = 500;
         this.y = 500;
         this.sprite = sprite;
         this.speed = 3;
-        this.gun = gun;
+
     }
 
     show() {
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
-        const playersizeHeight = screenWidth * 0.1
-        const playersizewidth = screenHeight * 0.18
+        const playersizeHeight = window.innerHeight * 0.2;
+        const playersizewidth = window.innerWidth * 0.1;
         image(this.sprite,this.x,this.y,playersizewidth,playersizeHeight);
-        this.gun.show(this.x,this.y);
+        if (!!bullets.length){
+            for (let i = 0; i < bullets.length; i++){
+                bullets[i].travel();
+                if (bullets[i].x > window.innerWidth) {
+                    bullets.splice(i, 1);
+                }
+            }
+        }
+    }
+
+    shoot() {
+        bullets.push(new Bullet(this.x, this.y));
     }
 
 
@@ -75,8 +63,6 @@ class Player {
 
         this.x = constrain(this.x, 0, window.innerWidth - this.sprite.width);
         this.y = constrain(this.y, 0, window.innerHeight - this.sprite.height);
-        
-        
         
     }
 }
@@ -119,12 +105,7 @@ class Vijand {
         this.x += mvmt.x;
         this.y += mvmt.y;
     }
-}
-
-
-
-
-    
+}   
 
 function preload() {
     map_background =  loadImage("images/level1.png");
@@ -136,13 +117,13 @@ function preload() {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    gun1 = new Gun(weaponImage);
-    player1 = new Player(playerImage, gun1);
+    window.bullets = [];
+    player1 = new Player(playerImage, weaponImage);
     ai1 = new Vijand(ai);
 }
 
 function mouseClicked() {
-    player1.gun.shoot(player1.x,player1.y);
+    player1.shoot();
 }
 
 function draw() {

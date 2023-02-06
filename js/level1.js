@@ -1,15 +1,22 @@
 let vijands = [];
 class Bullet {
-    constructor(x, y) {
-        this.x = x + 65;
-        this.y = y + 25;
+    constructor(x, y, angle) {
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
     }
 
     travel(){
+        this.x += 10 * cos(this.angle);
+        this.y += 10 * sin(this.angle);
+        push();
         fill("yellow");
         stroke('yellow');
-        rect(this.x,this.y,10,7.5);
-        this.x += 10;
+        translate(this.x, this.y);
+        rotate(this.angle);
+        imageMode(CENTER);
+        rect(0,0,10,7.5);
+        pop();
     }
 }
 
@@ -19,17 +26,23 @@ class Player {
         this.y = 500;
         this.sprite = sprite;
         this.speed = 3;
-        this.pos2 = createVector(this.x,this.y);
+        this.angle = atan2(mouseY - this.y, mouseX - this.x);
     }
 
     show() {
         const playersizeHeight = window.innerHeight * 0.2;
         const playersizewidth = window.innerWidth * 0.1;
-        image(this.sprite,this.x,this.y,playersizewidth,playersizeHeight);
+        push();
+        translate(this.x, this.y);
+        this.angle = atan2(mouseY - this.y, mouseX - this.x);
+        rotate(this.angle);
+        imageMode(CENTER);
+        image(this.sprite,0,0,playersizewidth,playersizeHeight);
+        pop();
         if (!!bullets.length){
             for (let i = 0; i < bullets.length; i++){
                 bullets[i].travel();
-                if (bullets[i].x > window.innerWidth) {
+                if (bullets[i].x > window.innerWidth || bullets[i].x < 0 || bullets[i].y > window.innerHeight || bullets[i].y < 0) {
                     bullets.splice(i, 1);
                 }
             }
@@ -37,7 +50,7 @@ class Player {
     }
 
     shoot() {
-        bullets.push(new Bullet(this.x, this.y));
+        bullets.push(new Bullet(this.x, this.y, this.angle));
     }
 
 

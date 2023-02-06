@@ -1,3 +1,4 @@
+let vijands = [];
 class Bullet {
     constructor(x, y) {
         this.x = x + 65;
@@ -18,7 +19,7 @@ class Player {
         this.y = 500;
         this.sprite = sprite;
         this.speed = 3;
-
+        this.pos2 = createVector(this.x,this.y);
     }
 
     show() {
@@ -70,50 +71,32 @@ class Player {
 
 class Vijand {
     constructor(sprite,collisionRadius) {
-        this.x = 0;
-        this.y = 0;
+        let y;
+        if (random(1) < 0.5) {
+          y = random(-300, 0);            
+        } else {
+          y = random(height, height + 300);
+        }
+        let x = random(-300, width + 300);
+        this.pos = createVector(x, y);
+
         this.sprite = sprite;
         this.speed = 2;
         this.stop = 0;
         this.maxDistance = 90; 
         this.radius = 60;
         this.collisionRadius = 55;
-        
-       
-    
-    }
-    show() {
-        image(this.sprite,this.x,this.y,100,100);
     }
 
-    move (targetx, targety){
-        let mvmt = createVector(0, 0);
-
-
-        let distancex = targetx - this.x;
-        let distancey = targety - this.y;
-       
-
-        if(distancex > this.maxDistance) {
-            mvmt.x += this.speed;
-        } else if(distancex < -this.maxDistance) {
-            mvmt.x -= this.speed;
-        } 
-
-        if(distancey > this.maxDistance) {
-            mvmt.y += this.speed;
-        } else if(distancey < -this.maxDistance) {
-            mvmt.y -= this.speed;
-        }
-
-        this.x += mvmt.x;
-        this.y += mvmt.y;
-    }
     draw(){
-        strokeWeight(5);
-        stroke("black",);
-        ellipse(this.x + this.sprite.width/4 ,this.y + this.sprite.height/4 ,this.radius);
-        
+        image(this.sprite,this.pos.x,this.pos.y,100,100);
+    }
+
+    update() {
+        this.p = createVector(player1.x,player1.y)
+        let difference = p5.Vector.sub(this.p, this.pos);
+        difference.limit(this.speed);
+        this.pos.add(difference);
     }
 }
 
@@ -126,32 +109,32 @@ function CircleCollisions(a1x,a1y,r1,a2x,a2y,r2){
     radiusSum = r1 + r2;
     xDif = a1x - a2x;
     yDif = a1y - a2y;
+    
     if(radiusSum > Math.sqrt((xDif*yDif)+(yDiff*yDiff) )){
         return true;
     }
+    
     else{
         return false;
     }
 
 
-}
-    
+} 
 
 function preload() {
     map_background =  loadImage("images/level1.png");
     weaponImage = loadImage("images/gun.png");
     playerImage = loadImage("images/player.png");
     ai = loadImage("images/player.png");
-    //gebruik van image player is zodat ik een werkende png heb 
 }
-
-
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     window.bullets = [];
     player1 = new Player(playerImage, weaponImage);
-    ai1 = new Vijand(ai);
+    vijand = new Vijand(ai);
+    frameCount = 0;
+    
 }
 
 function mouseClicked() {
@@ -159,21 +142,15 @@ function mouseClicked() {
 }
 
 function draw() {
+    frameCount += 1;
     background(map_background);
     player1.move();
     player1.show();
-    ai1.draw();
-    ai1.show();
-    ai1.move(player1.x, player1.y); 
+    vijand.draw();
+    vijand.update();
+    
+
 
 }
-function render(Gun){
-    if(Gun.bullets.length !=0){
-loop1: 
-        for(let g = 0;g < bullets.length;g++)
-            if(CircleCollisions(Gun.bullets[g].x , Gun.bullets[g].y , 4 , Vijand.x , Vijand.y , Vijand.collisionRadius)){
-                Gun.bullets.splice(g,1);
-                break loop1;
-            }
-    }
-}
+    
+   

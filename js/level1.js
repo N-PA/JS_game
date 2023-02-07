@@ -22,16 +22,16 @@ class Bullet {
 
 class Player {
     constructor(sprite) {
-        this.x = 500;
-        this.y = 500;
+        this.x = 800/2;
+        this.y = 450/2;
         this.sprite = sprite;
         this.speed = 3;
         this.angle = atan2(mouseY - this.y, mouseX - this.x);
     }
 
     show() {
-        const playersizeHeight = window.innerHeight * 0.2;
-        const playersizewidth = window.innerWidth * 0.1;
+        const playersizeHeight =  450* 0.2;
+        const playersizewidth = 800 * 0.1;
         push();
         translate(this.x, this.y);
         this.angle = atan2(mouseY - this.y, mouseX - this.x);
@@ -75,8 +75,8 @@ class Player {
         this.x += mvmt.x;
         this.y += mvmt.y;
 
-        this.x = constrain(this.x, 0, window.innerWidth - this.sprite.width);
-        this.y = constrain(this.y, 0, window.innerHeight - this.sprite.height);
+        this.x = constrain(this.x, 0, 800 );
+        this.y = constrain(this.y, 0, 450 );
         
     }
    
@@ -150,7 +150,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(window.innerWidth, window.innerHeight);
+    createCanvas(800, 450).id("myCanvas");
     window.bullets = [];
     player1 = new Player(playerImage, weaponImage);
     // vijand = new Vijand(ai);

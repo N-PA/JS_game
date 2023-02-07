@@ -83,7 +83,7 @@ class Player {
 }
 
 class Vijand {
-    constructor(sprite,collisionRadius) {
+    constructor(sprite) {
         let y;
         if (random(1) < 0.5) {
           y = random(-300, 0);            
@@ -92,24 +92,32 @@ class Vijand {
         }
         let x = random(-300, width + 300);
         this.pos = createVector(x, y);
-
+        this.pos2 = createVector(x, y);
         this.sprite = sprite;
         this.speed = 2;
         this.stop = 0;
         this.maxDistance = 90; 
         this.radius = 60;
         this.collisionRadius = 55;
+    
     }
 
     draw(){
+        push();
+        imageMode(CENTER);
         image(this.sprite,this.pos.x,this.pos.y,100,100);
+        pop();
+    
+        
+
+
     }
 
     update() {
         this.p = createVector(player1.x,player1.y)
-        let difference = p5.Vector.sub(this.p, this.pos);
-        difference.limit(this.speed);
-        this.pos.add(difference);
+        let diff = p5.Vector.sub(this.p, this.pos);
+        diff.limit(this.speed);
+        this.pos.add(diff);
     }
 }
 
@@ -138,14 +146,14 @@ function preload() {
     map_background =  loadImage("images/level1.png");
     weaponImage = loadImage("images/gun.png");
     playerImage = loadImage("images/player.png");
-    ai = loadImage("images/player.png");
+    ai = loadImage("images/enemy.png");
 }
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     window.bullets = [];
     player1 = new Player(playerImage, weaponImage);
-    vijand = new Vijand(ai);
+    // vijand = new Vijand(ai);
     frameCount = 0;
     
 }
@@ -159,9 +167,17 @@ function draw() {
     background(map_background);
     player1.move();
     player1.show();
-    vijand.draw();
-    vijand.update();
+    // vijand.draw();
+    // vijand.update();
+    for (let enemy of vijands){
+        enemy.draw();
+        enemy.update();
     
+    }
+    if (frameCount % 200 == 0){
+        vijands.push(new Vijand(ai));
+    }
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
 
 
 }

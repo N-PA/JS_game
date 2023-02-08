@@ -1,4 +1,6 @@
 let vijands = [];
+let timer = 200
+let framerate = 0
 class Bullet {
     constructor(x, y, angle) {
         this.x = x;
@@ -103,7 +105,7 @@ class Vijand {
         this.pos = createVector(x, y);
         this.pos2 = createVector(x, y);
         this.sprite = sprite;
-        this.speed = 2;
+        this.speed = 1.4;
         this.stop = 0;
         this.maxDistance = 90; 
         this.radius = 60;
@@ -115,7 +117,7 @@ class Vijand {
     draw(){
         push();
         imageMode(CENTER);
-        image(this.sprite,this.pos.x,this.pos.y,100,100);
+        image(this.sprite,this.pos.x,this.pos.y,50,50);
         pop();
         
       
@@ -189,9 +191,12 @@ function draw() {
           vijands.splice(u, 1);
         }
       }
-    if (frameCount % 200 == 0){
+    if (framerate >= timer){
         vijands.push(new Vijand(ai));
+        timer *= 0.99;
+        framerate = 0;
     }
+    framerate++;
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
 
 

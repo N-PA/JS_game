@@ -30,8 +30,8 @@ class Player {
     }
 
     show() {
-        const playersizeHeight =  450* 0.2;
-        const playersizewidth = 800 * 0.1;
+        const playersizeHeight =  450* 0.1;
+        const playersizewidth = 800 * 0.05;
         push();
         translate(this.x, this.y);
         this.angle = atan2(mouseY - this.y, mouseX - this.x);

@@ -1,6 +1,24 @@
 let vijands = [];
 let timer = 200
 let framerate = 0
+let buildings = [];
+buildings.push({x: 520, y: 110, w: 51, h: 80});
+buildings.push({x: 586, y: 160, w: 80, h: 30});
+buildings.push({x: 280, y: 300, w: 35, h: 45});
+buildings.push({x: 235, y: 280, w: 115 , h: 10});
+buildings.push({x: 107, y: 310, w: 33 , h: 70});
+buildings.push({x: 140, y: 350, w: 70 , h: 30});
+buildings.push({x: 575, y: 265, w: 81 , h: 11});
+buildings.push({x: 60, y: 205, w: 50 , h: 20});
+buildings.push({x: 182, y: 205, w: 120 , h: 20});
+buildings.push({x: 375, y: 205, w: 65 , h: 20});
+buildings.push({x: 420, y: 205, w: 20 , h: 150});
+buildings.push({x: 440, y: 335, w: 80 , h: 20});
+buildings.push({x: 590, y: 335, w: 93 , h: 20});
+buildings.push({x: 755, y: 335, w: 25 , h: 20});
+
+
+
 class Bullet {
     constructor(x, y, angle) {
         this.x = x;
@@ -24,7 +42,7 @@ class Bullet {
 
 class Player {
     constructor(sprite) {
-        this.x = 800/2;
+        this.x = 1000/2;
         this.y = 450/2;
         this.sprite = sprite;
         this.speed = 3;
@@ -57,18 +75,21 @@ class Player {
 
 
     move() {
+        this.checkCollision(buildings);
+        this.prevX = this.x;
+        this.prevY = this.y;
         let mvmt = createVector(0, 0);
 
-        if (keyIsDown(LEFT_ARROW)) {
+        if (keyIsDown(65)) {
             mvmt.x -= this.speed;
         }
-        if (keyIsDown(RIGHT_ARROW)) {
+        if (keyIsDown(68)) {
             mvmt.x += this.speed;
         }
-        if (keyIsDown(UP_ARROW)) {
+        if (keyIsDown(87)) {
             mvmt.y -= this.speed;
         }
-        if (keyIsDown(DOWN_ARROW)) {
+        if (keyIsDown(83)) {
             mvmt.y += this.speed;
         }
 
@@ -77,20 +98,33 @@ class Player {
         this.x += mvmt.x;
         this.y += mvmt.y;
 
-        this.x = constrain(this.x, 0, 800 );
-        this.y = constrain(this.y, 0, 450 );
+       
+
+        this.x = constrain(this.x, 20, 780 );
+        this.y = constrain(this.y, 20, 430 );
         
     }
-    bullitHit(vijands) {
-        for (let u = 0; u < bullets.length; u++) {
-          if (dist(bullets[u].x, bullets[u].y, vijands.pos.x, vijands.pos.y) < 15) {
-            bullets.splice(u, 1);
-            return true;
-          }
+    checkCollision(buildings) {
+        for (let i = 0; i < buildings.length; i++) {
+            let building = buildings[i];
+            if (this.checkOverlap(this, building)) {
+                // prevent movement by setting x and y to their previous values
+                 console.log("Collision detected");
+                this.x = this.prevX;
+                this.y = this.prevY;
+
+                break;
+            }
         }
-        return false;
+    }
+      
+      checkOverlap(a, b) {
+        return (a.x + 40 > b.x &&
+                a.x < b.x + b.w &&
+                a.y + 45 > b.y &&
+                a.y < b.y + b.h);
       }
-   
+      
 }
 
 class Vijand {

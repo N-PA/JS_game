@@ -35,7 +35,7 @@ class Bullet {
         translate(this.x, this.y);
         rotate(this.angle);
         imageMode(CENTER);
-        rect(0,0,5,3.75);
+        rect(0,-7.5,5,3.75);
         pop();
     }
 }

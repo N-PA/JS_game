@@ -1,7 +1,7 @@
 //kijken of het de eerste keer is dat je de site inlaad
 if (!getCookie("eenKeerGeladen")) {
     setCookie("eenKeerGeladen", "true");
-    setCookie("scherm", "start_scherm");
+    window.location.href ='beginscherm.html';
 }
 
 //laad het goede level / scherm bestand in via cookie

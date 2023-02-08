@@ -124,6 +124,15 @@ class Player {
                 a.y + 45 > b.y &&
                 a.y < b.y + b.h);
       }
+      bullitHit(vijands) {
+        for (let u = 0; u < bullets.length; u++) {
+          if (dist(bullets[u].x, bullets[u].y, vijands.pos.x, vijands.pos.y) < 15) {
+            bullets.splice(u, 1);
+            return true;
+          }
+        }
+        return false;
+      }
       
 }
 

@@ -15,7 +15,7 @@ class Bullet {
         translate(this.x, this.y);
         rotate(this.angle);
         imageMode(CENTER);
-        rect(0,0,10,7.5);
+        rect(0,0,5,3.75);
         pop();
     }
 }
@@ -30,7 +30,7 @@ class Player {
     }
 
     show() {
-        const playersizeHeight =  450* 0.1;
+        const playersizeHeight =  450 * 0.1;
         const playersizewidth = 800 * 0.05;
         push();
         translate(this.x, this.y);
@@ -42,7 +42,7 @@ class Player {
         if (!!bullets.length){
             for (let i = 0; i < bullets.length; i++){
                 bullets[i].travel();
-                if (bullets[i].x > window.innerWidth || bullets[i].x < 0 || bullets[i].y > window.innerHeight || bullets[i].y < 0) {
+                if (bullets[i].x > canvas.width || bullets[i].x < 0 || bullets[i].y > canvas.height || bullets[i].y < 0) {
                     bullets.splice(i, 1);
                 }
             }

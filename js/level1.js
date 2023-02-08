@@ -142,22 +142,23 @@ class Vijand {
         this.maxDistance = 90; 
         this.radius = 60;
         this.collisionRadius = 55;
+        
     
     }
 
     draw(){
-        // push();
-        // imageMode(CENTER);
-        // image(this.sprite,this.pos.x,this.pos.y,100,100);
-        // pop();
-    
+        push();
+        imageMode(CENTER);
+        image(this.sprite,this.pos.x,this.pos.y,100,100);
+        pop();
         
+      
 
 
     }
 
     update() {
-        this.p = createVector(player1.x,player1.y)
+        this.p = createVector(player1.x,player1.y);
         let diff = p5.Vector.sub(this.p, this.pos);
         diff.limit(this.speed);
         this.pos.add(diff);
@@ -166,24 +167,24 @@ class Vijand {
 
 
 
-function CircleCollisions(a1x,a1y,r1,a2x,a2y,r2){
-    let radiusSum;
-    let xDif;
-    let yDif;
-    radiusSum = r1 + r2;
-    xDif = a1x - a2x;
-    yDif = a1y - a2y;
+// function CircleCollisions(a1x,a1y,r1,a2x,a2y,r2){
+//     let radiusSum;
+//     let xDif;
+//     let yDif;
+//     radiusSum = r1 + r2;
+//     xDif = a1x - a2x;
+//     yDif = a1y - a2y;
     
-    if(radiusSum > Math.sqrt((xDif*yDif)+(yDiff*yDiff) )){
-        return true;
-    }
+//     if(radiusSum > Math.sqrt((xDif*yDif)+(yDiff*yDiff) )){
+//         return true;
+//     }
     
-    else{
-        return false;
-    }
+//     else{
+//         return false;
+//     }
 
 
-} 
+// } 
 
 function preload() {
     map_background =  loadImage("images/level1.png");
@@ -212,11 +213,16 @@ function draw() {
     player1.show();
     // vijand.draw();
     // vijand.update();
-    for (let enemy of vijands){
-        enemy.draw();
-        enemy.update();
-    
-    }
+
+
+    for (let u = vijands.length - 1; u >= 0; u--) {
+        vijands[u].draw();
+        vijands[u].update();
+        
+        if (player1.bullitHit(vijands[u])) {
+          vijands.splice(u, 1);
+        }
+      }
     if (frameCount % 200 == 0){
         vijands.push(new Vijand(ai));
     }

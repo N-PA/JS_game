@@ -2,6 +2,8 @@ let vijands = [];
 let timer = 200
 let framerate = 0
 let buildings = [];
+let score = 0;
+let x = 0
 buildings.push({x: 520, y: 110, w: 51, h: 80});
 buildings.push({x: 586, y: 160, w: 80, h: 30});
 buildings.push({x: 280, y: 300, w: 35, h: 45});
@@ -224,22 +226,25 @@ function draw() {
     player1.show();
     // vijand.draw();
     // vijand.update();
-
-
+    
+    text('score '+ score,canvas.width - 70, 20 );
     for (let u = vijands.length - 1; u >= 0; u--) {
         vijands[u].draw();
         vijands[u].update();
         
         if (player1.bullitHit(vijands[u])) {
           vijands.splice(u, 1);
+          score += 1
         }
       }
     if (framerate >= timer){
         vijands.push(new Vijand(ai));
-        timer *= 0.99;
+        timer -= 55*Math.log10(x);
+        x++;
         framerate = 0;
     }
     framerate++;
+    console.log(x);
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
 
 

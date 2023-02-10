@@ -1,9 +1,9 @@
 let vijands = [];
-let timer = 200
+let timer = 110
 let framerate = 0
 let buildings = [];
 let score = 0;
-let x = 0
+let x = 0;
 buildings.push({x: 520, y: 110, w: 51, h: 80});
 buildings.push({x: 586, y: 160, w: 80, h: 30});
 buildings.push({x: 280, y: 300, w: 35, h: 45});
@@ -239,7 +239,7 @@ function draw() {
       }
     if (framerate >= timer){
         vijands.push(new Vijand(ai));
-        timer -= 55*Math.log10(x);
+        timer *= 0.996;
         x++;
         framerate = 0;
     }

@@ -149,8 +149,12 @@ body{
 }
 
 .logo {
-    text-align: center;
+    left: 40%;
+    position: relative;
     margin-bottom: 50px;
+    max-width: 100%;
+    min-width: 50px;
+    width: 25%;
   }
 .logo2 {
     position: relative;

@@ -157,4 +157,23 @@ body{
     left: 1%;
     width: 250px;
 }     
-
+.death-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+    font-size: 30px;
+  }
+  
+  .death-screen h1 {
+    margin-bottom: 20px;
+    font-size: 100px;
+  }
+  
+  .death-screen p {
+    font-size: 25px;
+    margin-bottom: 40px;
+  }
+  

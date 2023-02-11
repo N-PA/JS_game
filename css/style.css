@@ -8,3 +8,40 @@
 #myElement {
     background-color: rgb(19, 19, 18);
   }
+
+  .help-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
+
+
+
+.back-button{
+    margin: 20px;
+    padding: 20px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+  }
+  
+  .back-button:hover {
+    background-color: rgb(236,38,144);
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .back-button:active {
+    transform: translateY(5px) scale(0.9);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  .logo {
+    text-align: center;
+    margin-bottom: 50px;
+  }

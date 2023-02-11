@@ -149,10 +149,9 @@ body{
 }
 
 .logo {
-    position: relative;
-    top: 50%;
-    left: 43%;
-}
+    text-align: center;
+    margin-bottom: 50px;
+  }
 .logo2 {
     position: relative;
     left: 1%;

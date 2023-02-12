@@ -1,9 +1,20 @@
 let vijands = [];
+let enemyBetter = [];
 let timer = 110
 let framerate = 0
 let buildings = [];
 let score = 0;
 let x = 0;
+let arr = [];
+let start = 10;
+let increment = 10;
+let spawnEnemy = false;
+for (let i = 0; i < 10; i++) {
+  arr.push(start + (i * increment));
+}
+
+
+
 buildings.push({x: 520, y: 110, w: 51, h: 80});
 buildings.push({x: 586, y: 160, w: 80, h: 30});
 buildings.push({x: 280, y: 300, w: 35, h: 45});
@@ -111,7 +122,7 @@ class Player {
             let building = buildings[i];
             if (this.checkOverlap(this, building)) {
                 // prevent movement by setting x and y to their previous values
-                 console.log("Collision detected");
+                //  console.log("Collision detected");
                 this.x = this.prevX;
                 this.y = this.prevY;
 
@@ -135,6 +146,7 @@ class Player {
         }
         return false;
       }
+     
       
 }
 
@@ -158,16 +170,13 @@ class Vijand {
         
     
     }
+    
 
     draw(){
         push();
         imageMode(CENTER);
         image(this.sprite,this.pos.x,this.pos.y,50,50);
         pop();
-        
-      
-
-
     }
 
     update() {
@@ -176,78 +185,141 @@ class Vijand {
         diff.limit(this.speed);
         this.pos.add(diff);
     }
-}
+    wordGeraakt(player1) {
+        if(dist(this.pos.x, this.pos.y, player1.x, player1.y) < 20){
+            return true;
+        }
+        return false;
+      }
 
-
-
-// function CircleCollisions(a1x,a1y,r1,a2x,a2y,r2){
-//     let radiusSum;
-//     let xDif;
-//     let yDif;
-//     radiusSum = r1 + r2;
-//     xDif = a1x - a2x;
-//     yDif = a1y - a2y;
     
-//     if(radiusSum > Math.sqrt((xDif*yDif)+(yDiff*yDiff) )){
-//         return true;
-//     }
+} 
+
+class VijandGroter {
+    constructor(sprite) {
+        let y;
+        if (random(1) < 0.5) {
+          y = random(-300, 0);            
+        } else {
+          y = random(height, height + 300);
+        }
+        let x = random(-300, width + 300);
+        this.pos = createVector(x, y);
+        this.pos2 = createVector(x, y);
+        this.sprite = sprite;
+        this.speed = 1.4;
+        this.stop = 0;
+        this.maxDistance = 90; 
+        this.radius = 60;
+        this.collisionRadius = 55;
+        
     
-//     else{
-//         return false;
-//     }
+    }
+    draw(){
+        push();
+        imageMode(CENTER);
+        image(this.sprite,this.pos.x,this.pos.y,50,50);
+        pop();
+    }
+    update() {
+        this.p = createVector(player1.x,player1.y);
+        let diff = p5.Vector.sub(this.p, this.pos);
+        diff.limit(this.speed);
+        this.pos.add(diff);
+    }  
+    wordGeraakt(player1) {
+        if(dist(this.pos.x, this.pos.y, player1.x, player1.y) < 20){
+            return true;
+        }
+        return false;
+      }
+} 
 
-
-// } 
 
 function preload() {
     map_background =  loadImage("images/level1.png");
     weaponImage = loadImage("images/gun.png");
     playerImage = loadImage("images/player.png");
     ai = loadImage("images/enemy.png");
+    ai2 = loadImage("images/player.png");
 }
 
 function setup() {
     createCanvas(800, 450).id("myCanvas");
     window.bullets = [];
     player1 = new Player(playerImage, weaponImage);
-    // vijand = new Vijand(ai);
     frameCount = 0;
     
 }
-
 function mouseClicked() {
     player1.shoot();
 }
+
 
 function draw() {
     frameCount += 1;
     background(map_background);
     player1.move();
     player1.show();
-    // vijand.draw();
-    // vijand.update();
-    
+    push();
+    fill("white")
+    textFont("Georgia")
     text('score '+ score,canvas.width - 70, 20 );
+    pop();
+
     for (let u = vijands.length - 1; u >= 0; u--) {
         vijands[u].draw();
         vijands[u].update();
-        
+    
         if (player1.bullitHit(vijands[u])) {
           vijands.splice(u, 1);
-          score += 1
+          score += 1;
         }
-      }
+        if(vijands[u]){
+            if (vijands[u].wordGeraakt(player1)) { // add this
+               noLoop();
+                break;
+            
+            }
+        }
+
+        
+    }
     if (framerate >= timer){
         vijands.push(new Vijand(ai));
         timer *= 0.996;
         x++;
         framerate = 0;
     }
+    for (let o = enemyBetter.length - 1; o >= 0; o--) {
+        enemyBetter[o].draw();
+        enemyBetter[o].update();
+    
+        if (player1.bullitHit(enemyBetter[o])) {
+            enemyBetter.splice(o, 1);
+          score += 1;
+        }
+        if(enemyBetter[o]){
+            if (enemyBetter[o].wordGeraakt(player1)) { // add this
+               noLoop();
+                break;
+            
+            }
+        }
+        
+    }
+      if(enemyBetter == 0)
+        if (score % 10 === 0 && score > 0) {
+        enemyBetter.push(new VijandGroter(ai2))
+    
+        } 
+
+    
+
+    
     framerate++;
-    console.log(x);
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
-
-
 }
+
     
    

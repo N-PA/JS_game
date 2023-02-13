@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/cookies.js"></script>
-    <script src="js/beginscherm.js"></script>
+    <script src="js/begin-eindscherm.js"></script>
     <title>eind scherm</title>
 </head>
 
@@ -15,7 +15,11 @@
     <div class="death-screen">
         <h1>You Died!</h1>
         <p>But don't worry, you'll respawn stronger and more handsome next time!</p>
-        <p class="score">Score: <span id="score-value">0</span></p>
+        <p class="score">Score: <span id="score-value"></span></p>
+        <script>
+          var span = document.getElementById("score-value");
+          span.textContent = `${getCookie("score")}`;
+        </script>
       <div class="buttons">
         <a href="index.html" onclick="level1()" class="button level1">Level 1</a>
         <a href="index.html" onclick="level2()"  class="button level2">Level 2</a>

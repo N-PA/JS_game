@@ -215,6 +215,7 @@ class VijandGroter {
         this.maxDistance = 90;
         this.radius = 60;
         this.collisionRadius = 55;
+        this.hp = 3;
     }
 
     draw() {
@@ -302,8 +303,11 @@ function draw() {
         enemyBetter[o].update();
 
         if (player1.bullitHit(enemyBetter[o])) {
-            enemyBetter.splice(o, 1);
-            score += 1;
+            enemyBetter[o].hp -= 1;
+            if(enemyBetter[o].hp == 0)    {
+                enemyBetter.splice(o, 1);
+                score += 1;
+            }
         }
         if (enemyBetter[o]) {
             if (enemyBetter[o].wordGeraakt(player1)) {

@@ -246,7 +246,7 @@ function preload() {
     weaponImage = loadImage("images/gun.png");
     playerImage = loadImage("images/player.png");
     ai = loadImage("images/enemy.png");
-    ai2 = loadImage("images/player.png");
+    ai2 = loadImage("images/lebronjehames.png");
 }
 
 function setup() {

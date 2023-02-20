@@ -9,6 +9,9 @@ let arr = [];
 let start = 10;
 let increment = 10;
 let spawnEnemy = false;
+let backgroundMusic;
+let shootSound;
+let doodMonk;
 
 for (let i = 0; i < 10; i++) {
     arr.push(start + (i * increment));
@@ -123,8 +126,6 @@ class Player {
         for (let i = 0; i < buildings.length; i++) {
             let building = buildings[i];
             if (this.checkOverlap(this, building)) {
-                // prevent movement by setting x and y to their previous values
-                //  console.log("Collision detected");
                 this.x = this.prevX;
                 this.y = this.prevY;
                 break;
@@ -247,6 +248,11 @@ function preload() {
     playerImage = loadImage("images/player.png");
     ai = loadImage("images/enemy.png");
     ai2 = loadImage("images/lebronjehames.png");
+    soundFormats('mp3', 'ogg');
+    backgroundMusic = loadSound('sounds/background');
+    shootSound = loadSound('sounds/pew.mp3');
+    doodMonk = loadSound('sounds/pop.mp3');
+
 }
 
 function setup() {
@@ -254,10 +260,16 @@ function setup() {
     window.bullets = [];
     player1 = new Player(playerImage, weaponImage);
     frameCount = 0;
+    backgroundMusic.setVolume(0.1);
+    backgroundMusic.loop();
+    doodMonk.setVolume(0.05);
+    
 }
 
 function mouseClicked() {
     player1.shoot();
+    shootSound.setVolume(0.05)
+    shootSound.play();
 }
 
 
@@ -272,12 +284,15 @@ function draw() {
     text('score ' + score, canvas.width - 70, 20);
     pop();
 
+
+
     for (let u = vijands.length - 1; u >= 0; u--) {
         vijands[u].draw();
         vijands[u].update();
 
         if (player1.bullitHit(vijands[u])) {
             vijands.splice(u, 1);
+            doodMonk.play();
             score += 1;
         }
 
@@ -306,6 +321,7 @@ function draw() {
             enemyBetter[o].hp -= 1;
             if(enemyBetter[o].hp == 0)    {
                 enemyBetter.splice(o, 1);
+                doodMonk.play();
                 score += 1;
             }
         }
@@ -315,17 +331,19 @@ function draw() {
                 setCookie("score", score);
                 window.location.href = "eindscherm.html";
                 break;
+                
+
             }
         }
     }
 
-    if (enemyBetter == 0) //ik snap het nut van deze if statement niet -niemand
-    if (score % 10 === 0 && score > 0) {
+    if (enemyBetter == 0) {
+        if (score % 10 === 0 && score > 0) {
         enemyBetter.push(new VijandGroter(ai2))
+        }
     }
 
     framerate++;
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
 }
 
 

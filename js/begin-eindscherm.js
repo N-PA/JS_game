@@ -42,6 +42,10 @@ window.onload = function() {
     ];
     var randomIndex = Math.floor(Math.random() * sentences.length);
     h1.innerText = sentences[randomIndex];
+
+    let deadsound = new Audio('sounds/dood.mp3');
+    deadsound.volume = 0.5;
+    deadsound.play();
   }
   
   

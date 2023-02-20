@@ -8,3 +8,5 @@ if (!getCookie("eenKeerGeladen")) {
 var scherm = document.createElement("script");
 scherm.setAttribute('src', `js/${getCookie("scherm")}.js`);
 document.head.appendChild(scherm);
+
+//tiemen hele document

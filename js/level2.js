@@ -1,3 +1,4 @@
+//hetzelfde als level 1
 let vijands = [];
 let enemyBetter = [];
 let timer = 110

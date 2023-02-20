@@ -1,15 +1,15 @@
-function level1() {
+function level1() { // tiemenn
     setCookie("score", 0);
     setCookie("scherm", "level1");
 }
 
-function level2() {
+function level2() {// tiemen
     setCookie("score", 0);
     setCookie("scherm", "level2");
 }
 
 
-window.onload = function() {
+window.onload = function() {//abdul
     var h1 = document.getElementById("random-text");
     var sentences = [
       "You were so close, yet so far... like a parking spot when you're already late for work.",
@@ -43,9 +43,11 @@ window.onload = function() {
     var randomIndex = Math.floor(Math.random() * sentences.length);
     h1.innerText = sentences[randomIndex];
 
+    //david
     let deadsound = new Audio('sounds/dood.mp3');
     deadsound.volume = 0.5;
     deadsound.play();
+    //
   }
   
   

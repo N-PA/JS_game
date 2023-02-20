@@ -18,7 +18,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 
-
+//abdul
 buildings.push({ x: 520, y: 110, w: 51, h: 80 });
 buildings.push({ x: 586, y: 160, w: 80, h: 30 });
 buildings.push({ x: 280, y: 300, w: 35, h: 45 });
@@ -33,10 +33,10 @@ buildings.push({ x: 420, y: 205, w: 20, h: 150 });
 buildings.push({ x: 440, y: 335, w: 80, h: 20 });
 buildings.push({ x: 590, y: 335, w: 93, h: 20 });
 buildings.push({ x: 755, y: 335, w: 25, h: 20 });
+//abdul
 
 
-
-class Bullet {
+class Bullet { //tiemen
     constructor(x, y, angle) {
         this.x = x;
         this.y = y;
@@ -57,7 +57,7 @@ class Bullet {
     }
 }
 
-class Player {
+class Player { //abdul / tiemen
     constructor(sprite) {
         this.x = 1000 / 2;
         this.y = 450 / 2;
@@ -66,7 +66,7 @@ class Player {
         this.angle = atan2(mouseY - this.y, mouseX - this.x);
     }
 
-    show() {
+    show() { //tiemen en abdul
         const playersizeHeight = 450 * 0.1;
         const playersizewidth = 800 * 0.05;
         push();
@@ -86,12 +86,12 @@ class Player {
         }
     }
 
-    shoot() {
+    shoot() {// tiemen
         bullets.push(new Bullet(this.x, this.y, this.angle));
     }
 
 
-    move() {
+    move() { // abdul
         this.checkCollision(buildings);
         this.prevX = this.x;
         this.prevY = this.y;
@@ -122,7 +122,7 @@ class Player {
 
     }
 
-    checkCollision(buildings) {
+    checkCollision(buildings) {//abdul
         for (let i = 0; i < buildings.length; i++) {
             let building = buildings[i];
             if (this.checkOverlap(this, building)) {
@@ -133,14 +133,14 @@ class Player {
         }
     }
 
-    checkOverlap(a, b) {
+    checkOverlap(a, b) {//abdul
         return (a.x + 40 > b.x &&
             a.x < b.x + b.w &&
             a.y + 45 > b.y &&
             a.y < b.y + b.h);
     }
 
-    bullitHit(vijands) {
+    bullitHit(vijands) {//tiemen
         for (let u = 0; u < bullets.length; u++) {
             if (dist(bullets[u].x, bullets[u].y, vijands.pos.x, vijands.pos.y) < 15) {
                 bullets.splice(u, 1);
@@ -151,7 +151,7 @@ class Player {
     }
 }
 
-class Vijand {
+class Vijand {//David
     constructor(sprite) {
         let y;
 
@@ -196,7 +196,7 @@ class Vijand {
     }
 }
 
-class VijandGroter {
+class VijandGroter { //David
     constructor(sprite) {
         let y;
         if (random(1) < 0.5) {
@@ -242,7 +242,7 @@ class VijandGroter {
 }
 
 
-function preload() {
+function preload() {// alle drie
     map_background = loadImage("images/level1.png");
     weaponImage = loadImage("images/gun.png");
     playerImage = loadImage("images/player.png");
@@ -255,7 +255,7 @@ function preload() {
 
 }
 
-function setup() {
+function setup() { //alle drie
     createCanvas(800, 450).id("myCanvas");
     window.bullets = [];
     player1 = new Player(playerImage, weaponImage);
@@ -266,14 +266,14 @@ function setup() {
     
 }
 
-function mouseClicked() {
+function mouseClicked() {// alle drie aardig persoons trouwens
     player1.shoot();
     shootSound.setVolume(0.05)
     shootSound.play();
 }
 
 
-function draw() {
+function draw() {// alle drie
     frameCount += 1;
     background(map_background);
     player1.move();
@@ -286,38 +286,38 @@ function draw() {
 
 
 
-    for (let u = vijands.length - 1; u >= 0; u--) {
+    for (let u = vijands.length - 1; u >= 0; u--) {// david
         vijands[u].draw();
         vijands[u].update();
 
-        if (player1.bullitHit(vijands[u])) {
+        if (player1.bullitHit(vijands[u])) {//david
             vijands.splice(u, 1);
             doodMonk.play();
             score += 1;
         }
 
-        if (vijands[u]) {
+        if (vijands[u]) {//david
             if (vijands[u].wordGeraakt(player1)) {
-                noLoop();
+                noLoop();//tiemen
                 setCookie("score", score);
                 window.location.href = "eindscherm.html";
-                break;
+                break;//
             }
         }
     }
 
-    if (framerate >= timer) {
+    if (framerate >= timer) {//david
         vijands.push(new Vijand(ai));
-        timer *= 0.996;
+        timer *= 0.996;//abduls zijn 0.996 
         x++;
         framerate = 0;
     }
 
-    for (let o = enemyBetter.length - 1; o >= 0; o--) {
+    for (let o = enemyBetter.length - 1; o >= 0; o--) {//david
         enemyBetter[o].draw();
         enemyBetter[o].update();
 
-        if (player1.bullitHit(enemyBetter[o])) {
+        if (player1.bullitHit(enemyBetter[o])) {//david
             enemyBetter[o].hp -= 1;
             if(enemyBetter[o].hp == 0)    {
                 enemyBetter.splice(o, 1);
@@ -327,17 +327,17 @@ function draw() {
         }
         if (enemyBetter[o]) {
             if (enemyBetter[o].wordGeraakt(player1)) {
-                noLoop();
+                noLoop();//tiemen
                 setCookie("score", score);
                 window.location.href = "eindscherm.html";
                 break;
-                
+                //
 
             }
         }
     }
 
-    if (enemyBetter == 0) {
+    if (enemyBetter == 0) {//david
         if (score % 10 === 0 && score > 0) {
         enemyBetter.push(new VijandGroter(ai2))
         }
